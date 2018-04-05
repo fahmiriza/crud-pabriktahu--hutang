@@ -1,0 +1,47 @@
+syntax="proto3";
+
+import "google/protobuf/empty.proto";
+
+package grpc;
+
+message AddHutangReq{
+    string KodeHutang=1;
+    string NamaHutang=2;
+    string TanggalHutang=3;
+    string TotalHutang=4;
+    int32 Status = 5;
+    string CreateBy = 6;
+}
+
+message ReadHutangByNamaReq{
+    string NamaHutang = 1;
+}
+
+message ReadHutangByNamaResp{
+    string KodeHutang=1;
+    string NamaHutang=2;
+    string TanggalHutang=3;
+    string TotalHutang=4;
+    int32 Status = 5;
+    string CreateBy = 6;
+}
+
+message ReadHutangResp{
+    repeated ReadHutangByNamaResp allHutang = 1;
+}
+
+message UpdateHutangReq{
+    string KodeHutang=1;
+    string NamaHutang=2;
+    string TanggalHutang=3;
+    string TotalHutang=4;
+    int32 Status = 5;
+    string UpdateBy = 6;
+}
+
+service HutangService{
+    rpc AddHutang(AddHutangReq) returns (google.protobuf.Empty) {};
+    rpc ReadHutangByNama(ReadHutangByNamaReq) returns (ReadHutangByNamaResp) {};
+    rpc ReadHutang(google.protobuf.Empty) returns (ReadHutangResp){};
+    rpc UpdateHutang(UpdateHutangReq) returns (google.protobuf.Empty){};
+}
